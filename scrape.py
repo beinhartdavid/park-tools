@@ -1,8 +1,7 @@
-import selenium
 
-base_url = "https://www.parktool.com/category/tools"
+import pdb
+from selenium import webdriver
 
-# find element by class name = inline-headline
 
 """
 Step 1. 
@@ -10,6 +9,20 @@ Scrape the 'base_url', and generate a 2 dimensional list containing the url and 
 Example lst = [ [Brakes, brakeUrl], []...]
 
 """
+
+def getCategories():
+    base_url = "https://www.parktool.com/category/tools"
+    driver = webdriver.Chrome()
+    driver.get(base_url)
+    product_list = []
+    products = driver.find_elements_by_class_name("product-category")
+    for p in products:
+        name = p.find_element_by_class_name("inline-headline")
+        link = p.find_element_by_partial_link_text(name.text[:4])
+        product_list.append([name.text,link.get_attribute("href")])
+    return product_list
+pdb.set_trace()
+
 
 """
 Step 2.
